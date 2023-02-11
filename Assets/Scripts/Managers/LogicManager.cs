@@ -87,11 +87,14 @@ public class LogicManager : MonoBehaviour
 			audioManager.PlayMusic("chiptune");
 		}
 
-		playerScore = 0;
-		playerHighScore = PlayerPrefs.GetInt("playerHighScore", 0);
+		if (preset == Preset.MainScene)
+		{
+			playerScore = 0;
+			playerHighScore = PlayerPrefs.GetInt("playerHighScore", 0);
 
-		scoreText.text = playerScore.ToString();
-		highScoreText.text = playerHighScore.ToString();
+			scoreText.text = playerScore.ToString();
+			highScoreText.text = playerHighScore.ToString();
+		}
 	}
 
 	public void AddScore(int scoreToAdd)
