@@ -10,11 +10,15 @@ using UnityEditor;
 
 public class LogicManager : MonoBehaviour
 {
+	// * Remember to serialize fields in custom LogicManagerEditor class as well
 	[SerializeField]
 	private Preset preset;
 
 	[SerializeField]
 	private Text scoreText;
+
+	[SerializeField]
+	private Text highScoreText;
 
 	[SerializeField]
 	private GameObject gameOverScreen;
@@ -23,7 +27,8 @@ public class LogicManager : MonoBehaviour
 
 	private AudioManager audioManager;
 
-	private int playerScore = 0;
+	private int playerScore;
+	private int playerHighScore;
 	private static string currentSceneName;
 	private string previousSceneName;
 
@@ -44,6 +49,7 @@ public class LogicManager : MonoBehaviour
 			{
 				EditorGUILayout.Space();
 				SerializePropertyField("scoreText");
+				SerializePropertyField("highScoreText");
 				SerializePropertyField("gameOverScreen");
 			}
 
@@ -76,6 +82,27 @@ public class LogicManager : MonoBehaviour
 		{
 			audioManager.PlayMusic("chiptune");
 		}
+
+		playerScore = 0;
+		playerHighScore = PlayerPrefs.GetInt("playerHighScore", 0);
+
+		scoreText.text = playerScore.ToString();
+		highScoreText.text = playerHighScore.ToString();
+	}
+
+	public void AddScore(int scoreToAdd)
+	{
+		audioManager.PlaySound("score");
+
+		playerScore += scoreToAdd;
+		scoreText.text = playerScore.ToString();
+
+		if (playerScore > playerHighScore)
+		{
+			playerHighScore = playerScore;
+			PlayerPrefs.SetInt("playerHighScore", playerHighScore);
+			highScoreText.text = playerHighScore.ToString();
+		}
 	}
 
 	public void SwitchToTitleScreen()
@@ -94,15 +121,8 @@ public class LogicManager : MonoBehaviour
 		SceneManager.LoadScene(currentSceneName);
 	}
 
-	public void GameOver()
+	public void SetGameOver()
 	{
 		gameOverScreen.SetActive(true);
-	}
-
-	public void AddScore(int scoreToAdd)
-	{
-		audioManager.PlaySound("score");
-		playerScore += scoreToAdd;
-		scoreText.text = playerScore.ToString();
 	}
 }

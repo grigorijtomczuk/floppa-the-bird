@@ -47,7 +47,7 @@ public class BirdController : MonoBehaviour
 	{
 		isAlive = false;
 		sprite.flipY = true;
-		logicManager.GameOver();
+		logicManager.SetGameOver();
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
