@@ -21,6 +21,9 @@ public class LogicManager : MonoBehaviour
 	private Text highScoreText;
 
 	[SerializeField]
+	private GameObject hud;
+
+	[SerializeField]
 	private GameObject gameOverScreen;
 
 	private enum Preset { None, MainScene };
@@ -50,6 +53,7 @@ public class LogicManager : MonoBehaviour
 				EditorGUILayout.Space();
 				SerializePropertyField("scoreText");
 				SerializePropertyField("highScoreText");
+				SerializePropertyField("hud");
 				SerializePropertyField("gameOverScreen");
 			}
 
@@ -123,6 +127,7 @@ public class LogicManager : MonoBehaviour
 
 	public void SetGameOver()
 	{
+		hud.SetActive(false);
 		gameOverScreen.SetActive(true);
 	}
 }
