@@ -1250,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 1734830438}
     - target: {fileID: 7871317906852344594, guid: 1149a66f260247249afdc6d0cb2b20b5, type: 3}
       propertyPath: preset
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7871317906852344594, guid: 1149a66f260247249afdc6d0cb2b20b5, type: 3}
       propertyPath: scoreText

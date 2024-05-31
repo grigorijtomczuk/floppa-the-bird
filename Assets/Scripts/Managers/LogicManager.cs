@@ -27,7 +27,7 @@ public class LogicManager : MonoBehaviour
 	[SerializeField]
 	private GameObject gameOverScreen;
 
-	private enum Preset { None, MainScene };
+	private enum Preset { None, TitleScreen, MainScene };
 
 	private AudioManager audioManager;
 
@@ -48,6 +48,12 @@ public class LogicManager : MonoBehaviour
 			serializedObject.Update();
 
 			SerializePropertyField("preset");
+			
+			if (logicManager.preset == Preset.TitleScreen)
+			{
+				EditorGUILayout.Space();
+				SerializePropertyField("highScoreText");
+			}
 
 			if (logicManager.preset == Preset.MainScene)
 			{
@@ -87,6 +93,12 @@ public class LogicManager : MonoBehaviour
 		{
 			audioManager.PlayMusic("chiptune");
 		}
+		
+		if (preset == Preset.TitleScreen)
+		{
+			playerHighScore = PlayerPrefs.GetInt("playerHighScore", 0);
+			highScoreText.text = playerHighScore.ToString();
+		}
 
 		if (preset == Preset.MainScene)
 		{
@@ -111,6 +123,13 @@ public class LogicManager : MonoBehaviour
 			PlayerPrefs.SetInt("playerHighScore", playerHighScore);
 			highScoreText.text = playerHighScore.ToString();
 		}
+	}
+	
+	public void ResetHighScore()
+	{
+		playerHighScore = 0;
+		PlayerPrefs.SetInt("playerHighScore", playerHighScore);
+		highScoreText.text = playerHighScore.ToString();
 	}
 
 	public void SwitchToTitleScreen()
