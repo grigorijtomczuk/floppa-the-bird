@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -132,5 +133,10 @@ public class LogicManager : MonoBehaviour
 	{
 		hud.SetActive(false);
 		gameOverScreen.SetActive(true);
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
 	}
 }
